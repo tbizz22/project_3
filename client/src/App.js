@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import home from './pages/home';
 import logo from './logo.svg';
-import './App.css';
+import Menu from '@material-ui/core/Menu';
+import NavBar from './components/AppBar'
+import NoMatch from './pages/NoMatch'
+import login from './pages/login'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
-}
 
+
+const App = () => (
+    <Router>
+        <div>
+            <NavBar />
+            <Switch>
+                <Route exact path='/' component={home} />
+                <Route exact path='/home' component={home} />
+                <Route exact path='/login' component={login} />
+                <Route component={NoMatch} />
+            </Switch>
+
+        </div>
+    </Router>
+)
 export default App;
