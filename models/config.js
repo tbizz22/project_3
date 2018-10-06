@@ -1,12 +1,7 @@
 const mongoose = require('mongoose');
-const schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-const configSchema = new Schema({
-    config: {
-        type: Mixed,
-        required: true
-    }    
-}, {
+const configSchema = new Schema({}, {
     timestamps:true
 });
 
