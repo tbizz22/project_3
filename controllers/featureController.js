@@ -13,6 +13,12 @@ module.exports = {
     findById: function (req, res) {
         db.Feature
             .findById(req.params.id)
+            .populate({
+                path: 'feedback',
+                populate: {
+                    path: 'users'
+                }
+            })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
@@ -30,9 +36,11 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
-    remove: function(req, res) {
+    remove: function (req, res) {
         db.Feature
-            .findById({_id: req.params.id})
+            .findById({
+                _id: req.params.id
+            })
             .then(dbModel => dbModel.remove())
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
