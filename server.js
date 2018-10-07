@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const morgan = require('morgan');
+const session = require('express-session')
+const passport = require('./config/passport');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -11,6 +13,23 @@ const PORT = process.env.PORT || 3001;
 app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+
+// Sessions
+app.use(
+	session({
+		secret: 'fraggle-rock', //pick a random string to make the hash that is generated secure
+		resave: false, //required
+		saveUninitialized: false //required
+	})
+)
+
+// Passport
+app.use(passport.initialize())
+app.use(passport.session()) // calls the deserializeUser
+
+
+
 // Serve up static assets
 app.use(express.static("client/build"));
 // Add routes, both API and view
