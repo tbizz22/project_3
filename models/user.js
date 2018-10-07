@@ -26,7 +26,7 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        required: true
+        required: false
     },
     createdAt: {
         type: Date,
