@@ -18,7 +18,14 @@ const config = {
         1: 'Alpha'
     }, {
         2: 'Bravo'
+    }],
+    role: [{
+        1: 'Help Desk',
+        2: 'Account Manager',
+        3: 'Sales',
+        4: 'Technology',
+        5: 'Other'
     }]
 }
 
-module.exports = config
+module.exports = config;
