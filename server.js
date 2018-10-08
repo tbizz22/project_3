@@ -23,6 +23,7 @@ app.use(
 		saveUninitialized: false //required
 	})
 )
+console.log(session);
 
 // Passport
 app.use(passport.initialize())
