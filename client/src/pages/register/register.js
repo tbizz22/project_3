@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import { Input, TextArea, FormBtn } from '../../components/Form';
+import { Input, FormBtn, Select } from '../../components/Form';
 import API from "../../utils/API";
+
 
 class register extends Component {
     state = {
-        foo: 'bar'
+        userName: null,
+        password: null,
+        firstName: null,
+        lastName: null,
+        email: null,
+        role: null
     };
 
 
@@ -15,7 +21,8 @@ class register extends Component {
     };
 
     initSelect = () => {
-        const elem = document.getElementById('roleSelect')
+
+
 
     }
 
@@ -30,12 +37,12 @@ class register extends Component {
         event.preventDefault();
 
         API.createUser({
-            userName: '',
-            password: '',
-            firstName: '',
-            lastName: '',
-            email: '',
-            role: ''
+            userName: this.state.userName,
+            password: this.state.password,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            email: this.state.email,
+            role: this.state.role
         })
             .then(res => this.setState({
                 redirectTo: '/login'
@@ -79,15 +86,15 @@ class register extends Component {
                                     placeholder="Email (required)"
                                 />
                             </div>
-                            <div className="input-field col s6">
-                                <select id='roleSelect'>
-                                    <option value="" disabled selected>Choose your option</option>
-                                    <option value="1">Option 1</option>
-                                    <option value="2">Option 2</option>
-                                    <option value="3">Option 3</option>
-                                </select>
-                                <label>User Role</label>
+                            <div className='input-field col s6'>
+                                <Input
+                                    value={this.state.title}
+                                    onChange={this.handleInputChange}
+                                    name="userName"
+                                    placeholder="Username (required)"
+                                />
                             </div>
+
 
                         </div>
                         <div className='row'>
@@ -108,6 +115,17 @@ class register extends Component {
                                 />
                             </div>
                         </div>
+                        <div className = 'row'>
+                            <div className = 'input-field col s6'>
+                                <Select 
+                                    value = {this.state.value}
+                                    onChange={this.handleInputChange}
+                                    name="role"
+                                    placeholder="role (required)"
+                                />
+                            </div>
+                        </div>
+                        
                         <FormBtn
                             // disabled={!(this.state.author && this.state.title)}
                             onClick={this.handleFormSubmit}
