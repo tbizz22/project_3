@@ -2,11 +2,11 @@ const router = require('express').Router();
 const featureRoutes = require('./feature');
 const feedbackRoutes = require('./feedback');
 const userRoutes = require('./user');
-const configRoutes = require('./config')
-const loginRoutes = require('./login')
+const configRoutes = require('./config');
+const loginRoutes = require('./login');
 
 
-// routes
+// routes matches /api/...
 router.use('/feature', featureRoutes);
 router.use('/feedback', feedbackRoutes);
 router.use('/user', userRoutes);
