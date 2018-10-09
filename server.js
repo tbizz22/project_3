@@ -23,7 +23,10 @@ app.use(
 		saveUninitialized: false //required
 	})
 )
-console.log(session);
+app.use( (req, res, next) => {
+    console.log('req.session', req.session);
+    return next();
+});
 
 // Passport
 app.use(passport.initialize())
