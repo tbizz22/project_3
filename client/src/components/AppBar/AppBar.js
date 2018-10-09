@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
+import MenuLogin from './MenuLogin'
+import MenuButtons from './MenuButtons';
+
+
+
+
 
 class NavBar extends Component {
     state = {
@@ -21,9 +27,7 @@ class NavBar extends Component {
             console.log(res))
        }
        
-      
     }
-
 
     render() {
         return (
@@ -32,14 +36,18 @@ class NavBar extends Component {
                     <div className="nav-wrapper">
                         <a href="/" className="brand-logo center"><i className="extra-large black-text material-icons">repeat</i></a>
                         <ul id="nav-mobile" className="left hide-on-med-and-down">
-                            <li><a href="/"></a></li>
-                            <li><a href="/">Components</a></li>
-                            <li><a href="/Login">JavaScript</a></li>
+                            <MenuButtons 
+                            login = {this.state.login}
+                            />
                         </ul>
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
                             <li><a href="/"></a></li>
                             
-                            <li><a href="/Login">JavaScript</a></li>
+                            <li> 
+                                <MenuLogin 
+                                login= {this.state.login}
+                                /> 
+                            </li>
                         </ul>
                     </div>
                 </nav>
