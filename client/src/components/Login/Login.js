@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Input, FormBtn } from '../../components/Form';
-import API from "../../utils/API";
+import axios from 'axios';
 
 class Login extends Component {
     constructor() {
@@ -30,7 +30,30 @@ class Login extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-
+        axios
+            .post('/api/user/login', {
+                username: this.state.userName,
+                password: this.state.password
+            })
+            .then(response => {
+                console.log('login response: ')
+                console.log(response)
+                if (response.status === 200) {
+                    // update App.js state
+                    this.props.updateUser({
+                        loggedIn: true,
+                        username: response.data.username
+                    })
+                    // update the state to redirect to home
+                    this.setState({
+                        redirectTo: '/'
+                    })
+                }
+            }).catch(error => {
+                console.log('login error: ')
+                console.log(error);
+                
+            })
     }
 
     render() {
