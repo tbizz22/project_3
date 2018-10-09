@@ -59,7 +59,9 @@ function SignIn(props) {
                 <CssBaseline />
                 <main className={classes.layout}>
                     <Paper className={classes.paper}>
-                        <Typography variant="headline">Sign in</Typography>
+                    <div className='row'>
+                        <h4 className='center-align'>Log In</h4>
+                    </div>
                         <Login />
 
                     </Paper>
