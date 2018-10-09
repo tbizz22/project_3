@@ -11,7 +11,7 @@ router.use('/feature', featureRoutes);
 router.use('/feedback', feedbackRoutes);
 router.use('/user', userRoutes);
 router.use('/config', configRoutes);
-router.use('/login', loginRoutes)
+router.use('/login', loginRoutes);
 
 
 module.exports = router;
