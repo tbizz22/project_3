@@ -1,146 +1,75 @@
-import React, { Component } from 'react';
-import { Input, FormBtn, Select } from '../../components/Form';
-import { Redirect } from 'react-router-dom'
-import API from "../../utils/API";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+// import LockIcon from '@material-ui/icons/LockOutlined';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Register from '../../components/Register';
+import { Helmet } from 'react-helmet';
 
+const styles = theme => ({
+    layout: {
+        width: 'auto',
+        display: 'block', // Fix IE11 issue.
+        marginLeft: theme.spacing.unit * 3,
+        marginRight: theme.spacing.unit * 3,
+        [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+            width: 400,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+        },
+    },
+    paper: {
+        marginTop: theme.spacing.unit * 8,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+    },
+    avatar: {
+        margin: theme.spacing.unit,
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE11 issue.
+        marginTop: theme.spacing.unit,
+    },
+    submit: {
+        marginTop: theme.spacing.unit * 3,
+    },
+});
 
-class register extends Component {
-    state = {
-        userName: null,
-        password: null,
-        firstName: null,
-        lastName: null,
-        email: null,
-        role: null,
-        redirectTo: null
-    };
+function register(props) {
+    const { classes } = props;
 
+    return (
+        <div>
+            <Helmet>
+                <style>{'body { background-color: #778899 ; }'}</style>
+            </Helmet>
+            <React.Fragment>
+                <CssBaseline />
+                <main className={classes.layout}>
+                    <Paper className={classes.paper}>                        
+                        <Register />
 
-    componentDidMount() {
-        console.log('mounted');
-    };
-
-
-    handleInputChange = event => {
-        console.log(event)
-        const { name, value } = event.target;
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleFormSubmit = event => {
-        event.preventDefault();
-
-        API.createUser({
-            userName: this.state.userName,
-            password: this.state.password,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            email: this.state.email,
-            role: this.state.role
-        })
-            .then(res => this.setState({
-                redirectTo: '/login'
-            }))
-
-    }
-
-    render() {
-        if (this.state.redirectTo) {
-            return <Redirect to={{ pathname: this.state.redirectTo }} />
-        } else {
-             return (
-                <div>
-                    <div className='row'>
-                        <h4 className='center-align'>Register</h4>
-                    </div>
-
-                    <div className='container'>
-                        <form>
-                            <div className='row'>
-                                <div className='input-field col s6'>
-                                    <Input
-                                        value={this.state.title}
-                                        onChange={this.handleInputChange}
-                                        name="firstName"
-                                        placeholder="First Name (required)"
-                                    />
-                                </div>
-                                <div className='input-field col s6'>
-                                    <Input
-                                        value={this.state.title}
-                                        onChange={this.handleInputChange}
-                                        name="lastName"
-                                        placeholder="Last Name (required)"
-                                    />
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='input-field col s6'>
-                                    <Input
-                                        value={this.state.title}
-                                        onChange={this.handleInputChange}
-                                        name="email"
-                                        placeholder="Email (required)"
-                                        type="email"
-                                    />
-                                </div>
-                                <div className='input-field col s6'>
-                                    <Input
-                                        value={this.state.title}
-                                        onChange={this.handleInputChange}
-                                        name="userName"
-                                        placeholder="Username (required)"
-                                    />
-                                </div>
-
-
-                            </div>
-                            <div className='row'>
-                                <div className='input-field col s6'>
-                                    <Input
-                                        value={this.state.title}
-                                        onChange={this.handleInputChange}
-                                        name="password"
-                                        placeholder="Password (required)"
-                                        type="password"
-                                    />
-                                </div>
-                                <div className='input-field col s6'>
-                                    <Input
-                                        value={this.state.title}
-                                        onChange={this.handleInputChange}
-                                        name="confirmPassword"
-                                        placeholder="Confirm Password (required)"
-                                        type="password"
-                                    />
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='input-field col s6'>
-                                    <Select
-                                        value={this.state.value}
-                                        onChange={this.handleInputChange}
-                                        name="role"
-                                        placeholder="role (required)"
-                                    />
-                                </div>
-                            </div>
-
-                            <FormBtn
-                                // disabled={!(this.state.author && this.state.title)}
-                                onClick={this.handleFormSubmit}
-                            >
-                                Register
-              </FormBtn>
-                        </form>
-                    </div>
-                </div>
-            )
-        }
-    }
-
+                    </Paper>
+                </main>
+            </React.Fragment>
+        </div>
+    );
 }
 
-export default register;
+register.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(register);

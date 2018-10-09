@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Login from '../../components/Login';
+import { Helmet } from 'react-helmet';
 
 const styles = theme => ({
     layout: {
@@ -50,16 +51,21 @@ function SignIn(props) {
     const { classes } = props;
 
     return (
-        <React.Fragment>
-            <CssBaseline />
-            <main className={classes.layout}>
-                <Paper className={classes.paper}>
-                    <Typography variant="headline">Sign in</Typography>
-                    <Login />
+        <div>
+            <Helmet>
+                <style>{'body { background-color: #778899 ; }'}</style>
+            </Helmet>
+            <React.Fragment>
+                <CssBaseline />
+                <main className={classes.layout}>
+                    <Paper className={classes.paper}>
+                        <Typography variant="headline">Sign in</Typography>
+                        <Login />
 
-                </Paper>
-            </main>
-        </React.Fragment>
+                    </Paper>
+                </main>
+            </React.Fragment>
+        </div>
     );
 }
 
