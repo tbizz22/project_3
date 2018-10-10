@@ -9,7 +9,8 @@ import logout from './pages/logout';
 import userprofile from './pages/userprofile';
 import features from './pages/features';
 import feature from './pages/feature';
-import axios from 'axios'
+import axios from 'axios';
+import API from '../src/utils/API';
 
 class App extends Component {
     constructor() {
@@ -29,6 +30,7 @@ class App extends Component {
 
     updateUser(userObject) {
         this.setState({ user: userObject })
+        this.setState({loggedIn: 1})
     }
 
 
@@ -39,11 +41,10 @@ class App extends Component {
             console.log(response.data)
             if (response.data.user) {
                 console.log('Get User: There is a user saved in the server session: ')
-                console.log(response.data.user)
-                this.setState({
-                    loggedIn: true,
-                    user: response.data.user
-                })
+                console.log("response.data.user"+JSON.stringify(response.data.user))
+                API.getUser(response.data.user._id)
+                    .then(res => this.updateUser(res.data)
+                       )
             } else {
                 console.log('Get user: no user');
                 this.setState({
