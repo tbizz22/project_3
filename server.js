@@ -22,7 +22,8 @@ app.use(
 	session({
 		secret: 'fraggle-rock', //pick a random string to make the hash that is generated secure
 		resave: false, //required
-        saveUninitialized: false//required        
+        saveUninitialized: false,//required        
+        store: new MongoStore({ url: process.env.MONGODB_URI || "mongodb://localhost/loopfeed" }),
 	})
 )
 app.use( (req, res, next) => {

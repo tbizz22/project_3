@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import home from './pages/home';
 import NavBar from './components/AppBar';
 import NoMatch from './pages/NoMatch';
-import login from './pages/login';
+import Login from './pages/login';
 import register from './pages/register';
 import logout from './pages/logout';
 import userprofile from './pages/userprofile';
@@ -28,7 +28,7 @@ class App extends Component {
     }
 
     updateUser(userObject) {
-        this.setState({user:userObject})
+        this.setState({ user: userObject })
     }
 
 
@@ -39,16 +39,16 @@ class App extends Component {
             console.log(response.data)
             if (response.data.user) {
                 console.log('Get User: There is a user saved in the server session: ')
-
+                console.log(response.data.user)
                 this.setState({
                     loggedIn: true,
-                    username: response.data.user.username
+                    user: response.data.user
                 })
             } else {
                 console.log('Get user: no user');
                 this.setState({
                     loggedIn: false,
-                    username: null
+                    user: null
                 })
             }
         })
@@ -62,7 +62,7 @@ class App extends Component {
             <Router>
                 <div>
                     <header>
-                        <NavBar 
+                        <NavBar
                             loggedIn={this.state.loggedIn}
                         />
                     </header>
@@ -71,7 +71,10 @@ class App extends Component {
                         <Switch>
                             <Route exact path='/' component={home} />
                             <Route exact path='/home' component={home} />
-                            <Route exact path='/login' component={login} />
+                            <Route exact path='/login' render={(routeProps) => (
+                                <Login {...routeProps} {...this.updateUser} />
+                            )}
+                            />
                             <Route exact path='/register' component={register} />
                             <Route exact path='/logout' component={logout} />
                             <Route exact path='/user/:id' component={userprofile} />
