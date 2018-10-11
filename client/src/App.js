@@ -7,7 +7,7 @@ import Login from './pages/login';
 import register from './pages/register';
 import logout from './pages/logout';
 import userprofile from './pages/userprofile';
-import features from './pages/features';
+import Features from './pages/features';
 import feature from './pages/feature';
 import axios from 'axios';
 import API from '../src/utils/API';
@@ -99,7 +99,10 @@ class App extends Component {
                             <Route exact path='/register' component={register} />
                             <Route exact path='/logout' component={logout} />
                             <Route exact path='/user/:id' component={userprofile} />
-                            <Route exact path='/features' component={features} />
+                            <Route exact path='/features' render={(routeProps) => (
+                                <Features {...routeProps}{...this.state} />
+                            )}
+                            />
                             <Route exact path='/features/:id' component={feature} />
                             <Route component={NoMatch} />
 
