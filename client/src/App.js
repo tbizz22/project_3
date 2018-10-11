@@ -22,6 +22,7 @@ class App extends Component {
         this.getUser = this.getUser.bind(this)
         this.componentDidMount = this.componentDidMount.bind(this)
         this.updateUser = this.updateUser.bind(this)
+        this.logout = this.logout.bind(this);
     }
 
     componentDidMount() {
@@ -30,8 +31,26 @@ class App extends Component {
 
     updateUser(userObject) {
         this.setState({ user: userObject })
-        this.setState({loggedIn: 1})
+        this.setState({ loggedIn: 1 })
     }
+
+    logout = (event) => {
+        event.preventDefault()
+        console.log('logging out')
+        axios.post('/api/logout').then(response => {
+            console.log(response.data)
+            if (response.status === 200) {
+                this.setState({
+                    loggedIn: false,
+                    user: null
+                })
+            }
+        }).catch(error => {
+            console.log('Logout error')
+            console.log(error)
+        })
+    }
+
 
 
 
@@ -41,10 +60,10 @@ class App extends Component {
             console.log(response.data)
             if (response.data.user) {
                 console.log('Get User: There is a user saved in the server session: ')
-                console.log("response.data.user"+JSON.stringify(response.data.user))
+                console.log("response.data.user" + JSON.stringify(response.data.user))
                 API.getUser(response.data.user._id)
                     .then(res => this.updateUser(res.data)
-                       )
+                    )
             } else {
                 console.log('Get user: no user');
                 this.setState({
@@ -65,6 +84,7 @@ class App extends Component {
                     <header>
                         <NavBar
                             loggedIn={this.state.loggedIn}
+                            logout={this.logout}
                         />
                     </header>
 

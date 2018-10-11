@@ -9,7 +9,7 @@ import MenuButtons from './MenuButtons';
 
 class NavBar extends Component {
 
-  
+
 
     render() {
         return (
@@ -26,8 +26,10 @@ class NavBar extends Component {
                             <li><a href="/"></a></li>
                             
                             <li> 
-                                <MenuLogin 
-                                login= {this.props.loggedIn}
+                                <MenuLogin                                 
+                                logout = {this.props.logout}
+                                login = {this.props.loggedIn}
+                                
                                 /> 
                             </li>
                         </ul>
