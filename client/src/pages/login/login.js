@@ -47,8 +47,11 @@ const styles = theme => ({
     },
 });
 
+
+
 function SignIn(props) {
-    const { classes } = props;
+    const { classes, updateUser } = props;
+
 
     return (
         <div>
@@ -62,7 +65,7 @@ function SignIn(props) {
                     <div className='row'>
                         <h4 className='center-align'>Log In</h4>
                     </div>
-                        <Login />
+                        <Login updateUser={updateUser} />
 
                     </Paper>
                 </main>

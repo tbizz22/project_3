@@ -20,8 +20,7 @@ class Login extends Component {
     };
 
 
-    handleInputChange = event => {
-        console.log(event)
+    handleInputChange = event => {       
         const { name, value } = event.target;
         this.setState({
             [name]: value
@@ -40,13 +39,14 @@ class Login extends Component {
                 console.log(response)
                 if (response.status === 200) {
                     // update App.js state
-                    this.props.updateUser({
-                        loggedIn: true,
-                        username: response.data.username
-                    })
+                    // this.props.updateUser({
+                    //     loggedIn: true,
+                    //     user: response.data.user,
+                    //     foo:"flin"
+                    // })
                     // update the state to redirect to home
                     this.setState({
-                        redirectTo: '/'
+                        redirectTo: '/features'
                     })
                 }
             }).catch(error => {
