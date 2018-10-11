@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import API from "../../utils/API";
 import MenuLogin from './MenuLogin'
 import MenuButtons from './MenuButtons';
 
@@ -22,9 +21,7 @@ class NavBar extends Component {
                             login = {this.props.loggedIn}
                             />
                         </ul>
-                        <ul id="nav-mobile" className="right hide-on-med-and-down">
-                            <li><a href="/"></a></li>
-                            
+                        <ul id="nav-mobile" className="right hide-on-med-and-down">        
                             <li> 
                                 <MenuLogin                                 
                                 logout = {this.props.logout}
