@@ -4,7 +4,7 @@ const MenuButtons = (props) => {
     if (props.login === 1) {
         return (
             <div>
-                <li><a href="/">Features</a></li>
+                <li><a href="/features">Features</a></li>
             </div>
         )
     } else {
