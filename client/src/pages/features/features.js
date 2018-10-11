@@ -46,7 +46,7 @@ class features extends Component {
                                 status={feature.status}
                                 createdAt={feature.createdAt}
                                 team={feature.team}
-                                id={feature.id}
+                                id={feature._id}
                             />
                         )
                     })

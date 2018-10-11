@@ -30,6 +30,7 @@ deleteFeature: function(id) {
 
 // feedback
 
+// gets individual comment
 getFeedback: function(id) {
     return axios.get('/api/feedback/' + id)
 },
