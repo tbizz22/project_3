@@ -52,7 +52,7 @@ render() {
 
 
             <div className='row'>
-                <h4 className='center-align'>Features</h4>
+                <h4 className='center-align'>{this.state.title}</h4>
             </div>
 
 
