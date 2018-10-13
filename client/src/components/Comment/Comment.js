@@ -17,7 +17,7 @@ const IndividualComment = props => {
                     {cd.user.userName}
                 </div>
                 <div className="comment-created  right">
-                    <Moment format='MM-DD-YYYY HH:mm'>{cd.createdAt}</Moment>
+                    <Moment format='MM-DD-YYYY | hh:mm'>{cd.createdAt}</Moment>
                 </div>
             </div>
             <div className="flow-text">
