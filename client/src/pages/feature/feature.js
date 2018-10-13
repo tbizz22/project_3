@@ -72,13 +72,15 @@ render() {
                     <div className='row'>
                         <div className='col s6'>
                             <div>
-                                <h6>Team:  </h6>{this.state.team}
+                                <h6>Team:  </h6>
+                                {this.state.team}
                             </div>
                         </div>
 
                         <div className='col s6'>
                             <div>
-                                <h6>Status: </h6> {this.state.status}
+                                <h6>Status: </h6> 
+                                {this.state.status}
                             </div>
                         </div> 
                     </div> 
