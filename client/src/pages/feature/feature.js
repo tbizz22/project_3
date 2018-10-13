@@ -155,8 +155,9 @@ class feature extends Component {
 
                         <div id='feature-content' className='card-panel'>
                             <div className='row'>
+                            <h6>Add a Comment</h6>
                                 <CommentList
-                                    commments={this.state.comments[0]}
+                                    comments={this.state.comments[0]}
                                     addComment={this.addComment}
                                     handleInputChange={this.handleInputChange}
                                     value = {this.state.newComment}
