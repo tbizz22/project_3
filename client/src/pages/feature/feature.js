@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
 import './feature.css';
+import CommentList from '../../components/CommentList';
 
 
 import { Helmet } from 'react-helmet';
@@ -90,7 +91,7 @@ render() {
 
                 <div id='feature-content' className='card-panel'>
                     <div className='row'>
-                        {/* <Comments /> */}
+                        <CommentList />
                     </div>
                 </div>
 
