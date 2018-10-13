@@ -1,9 +1,12 @@
 import React from 'react';
 import './comment.css'
+import Moment from 'react-moment';
+
 
 
 const IndividualComment = props => {
     const cd = props.commentData; 
+  
 
 
     return (
@@ -14,7 +17,7 @@ const IndividualComment = props => {
                     {cd.user.userName}
                 </div>
                 <div className="comment-created  right">
-                    {cd.createdAt}
+                    <Moment format='MM-DD-YYYY HH:mm'>{cd.createdAt}</Moment>
                 </div>
             </div>
             <div className="flow-text">
