@@ -14,9 +14,10 @@ module.exports = {
         db.Feature
             .findById(req.params.id)
             .populate({
-                path: 'feedback',
+                path: 'comments',
                 populate: {
-                    path: 'users'
+                    path: 'user',
+                    select: 'userName'
                 }
             })
             .then(dbModel => res.json(dbModel))
