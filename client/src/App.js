@@ -8,7 +8,7 @@ import register from './pages/register';
 import logout from './pages/logout';
 import userprofile from './pages/userprofile';
 import Features from './pages/features';
-import feature from './pages/feature';
+import Feature from './pages/feature';
 import axios from 'axios';
 import API from '../src/utils/API';
 
@@ -103,7 +103,10 @@ class App extends Component {
                                 <Features {...routeProps}{...this.state} />
                             )}
                             />
-                            <Route exact path='/features/:id' component={feature} />
+                            <Route exact path='/features/:id' render={(routeProps) => (
+                                <Feature {...routeProps}{...this.state} />
+                            )}   
+                            />
                             <Route component={NoMatch} />
 
                         </Switch>

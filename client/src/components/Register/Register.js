@@ -50,7 +50,7 @@ class Register extends Component {
         if (this.state.redirectTo) {
             return <Redirect to={{ pathname: this.state.redirectTo }} />
         } else {
-             return (
+            return (
                 <div>
                     <div className='row'>
                         <h4 className='center-align'>Register</h4>
@@ -133,7 +133,7 @@ class Register extends Component {
                                 onClick={this.handleFormSubmit}
                             >
                                 Register
-              </FormBtn>
+                            </FormBtn>
                         </form>
                     </div>
                 </div>
