@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
 
+
 import { Helmet } from 'react-helmet';
 
 class feature extends Component {
@@ -30,7 +31,8 @@ class feature extends Component {
                     status: r.status,
                     team: r.team,
                     image: r.image,
-                    created: r.createdAt
+                    created: r.createdAt,
+                    description: r.description
                 })
             })
             .catch(err => { console.log(err) });
@@ -53,6 +55,30 @@ render() {
 
             <div className='row'>
                 <h4 className='center-align'>{this.state.title}</h4>
+            </div>
+
+
+          <img src={`/images/${this.state.image}`} />
+
+            <div className='container'>       
+                <div className='row'>
+                    <div>
+                        {this.state.description}
+                    </div>
+                </div>     
+                <div className='row'>
+                    <div className='col s6'>
+                        <div>
+                            Team: {this.state.team}
+                        </div>
+                    </div>
+                    <div className='col s6'>
+                    <div>
+                            Status: {this.state.status}
+                        </div>
+                    </div>b
+                
+                </div>            
             </div>
 
 

@@ -14,15 +14,17 @@ const featureSeed = [{
         title: 'Search',
         team: 'Alpha',
         status: 'going great',
-        image: 'vvvvvv',
-        createdAt: new Date(Date.now())
+        image: 'image1.png',
+        createdAt: new Date(Date.now()),
+        description: 'This is the description for this feature'
     },
     {
         title: 'CFL',
         team: 'Bravo',
         status: 'going Really great',
-        image: 'vvvvvv',
-        createdAt: new Date(Date.now())
+        image: 'image2.png',
+        createdAt: new Date(Date.now()),
+        description: 'This is the description for this feature'
     }
 
 ];

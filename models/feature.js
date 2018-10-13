@@ -16,12 +16,14 @@ const featureSchema = new Schema({
         required: true
     },
     image: {
-        data: Buffer,
-        contentType: String
+        type: String
     },
     createdAt: {
         type: Date,
         default: Date.Now
+    },
+    description: {
+        type: String
     },
     comments: [{
         type: Schema.Types.ObjectId,
