@@ -151,7 +151,7 @@ class feature extends Component {
 
                     <div className='container'>
                         <div className='center-align'>
-                            <img className='responsive-img max-height center-align' src={`/images/${this.state.image}`} alt='Feature' />
+                            <img className='responsive-img max-height center-align' src={this.state.image} alt='Feature' />
                         </div>
                         <form>
                             <div id='feature-content' className='card-panel'>
