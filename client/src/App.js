@@ -16,7 +16,11 @@ class App extends Component {
     constructor() {
         super()
         this.state = {
-            user: null,
+            user: {
+                _id:1,
+                userName: 'NoOne',
+                role: 'Nothing'
+            },
             loggedIn: 0,
         }
         this.getUser = this.getUser.bind(this)
@@ -42,7 +46,11 @@ class App extends Component {
             if (response.status === 200) {
                 this.setState({
                     loggedIn: false,
-                    user: null
+                    user: {
+                        _id:1,
+                        userName: 'NoOne',
+                        role: 'Nothing'
+                    }
                 })
             }
         }).catch(error => {
