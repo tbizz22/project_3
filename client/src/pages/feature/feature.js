@@ -4,7 +4,7 @@ import './feature.css';
 import CommentList from '../../components/CommentList';
 import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { Input, FormBtn, Select, TextArea } from '../../components/Form';
+import { Input, FormBtn, TextArea } from '../../components/Form';
 import Edit from '../../components/Edit';
 
 
@@ -201,7 +201,7 @@ class feature extends Component {
                         </form>
 
 
-                        <div id='feature-content' className='card-panel'>
+                        <div id='comment-content' className='card-panel'>
                             <div className='row'>
                                 <h6>Add a Comment</h6>
                                 <CommentList
