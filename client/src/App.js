@@ -85,6 +85,7 @@ class App extends Component {
                         <NavBar
                             loggedIn={this.state.loggedIn}
                             logout={this.logout}
+                            user={this.state.user}
                         />
                     </header>
 
