@@ -6,7 +6,7 @@ import NoMatch from './pages/NoMatch';
 import Login from './pages/login';
 import register from './pages/register';
 import logout from './pages/logout';
-import userprofile from './pages/userprofile';
+import UserProfile from './pages/userprofile';
 import Features from './pages/features';
 import Feature from './pages/feature';
 import axios from 'axios';
@@ -107,7 +107,11 @@ class App extends Component {
                             />
                             <Route exact path='/register' component={register} />
                             <Route exact path='/logout' component={logout} />
-                            <Route exact path='/user/:id' component={userprofile} />
+                            <Route exact path='/user/:id' render={(routeProps) => (
+                                <UserProfile {...routeProps}{...this.state} />
+                            )} 
+                            
+                            />
                             <Route exact path='/features' render={(routeProps) => (
                                 <Features {...routeProps}{...this.state} />
                             )}
