@@ -1,6 +1,6 @@
 import React from 'react';
 import Comment from '../Comment';
-import { Input, FormBtn, TextArea } from '../../components/Form';
+import { FormBtn, TextArea } from '../../components/Form';
 
 
 const CommentList = props => {

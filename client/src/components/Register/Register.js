@@ -12,7 +12,8 @@ class Register extends Component {
         lastName: null,
         email: null,
         role: null,
-        redirectTo: null
+        redirectTo: null,
+        confirmPassword: null
     };
 
 
