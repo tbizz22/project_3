@@ -5,13 +5,14 @@ import CommentList from '../../components/CommentList';
 import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Input, FormBtn, Select, TextArea } from '../../components/Form';
+import Edit from '../../components/Edit';
 
 
 
 class feature extends Component {
     constructor() {
         super()
-       this.state = {
+        this.state = {
             title: '',
             comments: [],
             status: '',
@@ -21,13 +22,14 @@ class feature extends Component {
             newComment: '',
             featureId: '',
             redirectTo: '',
-            disabled: true
+            disabled: true,
+            showedit: true
         };
         this.getFeature = this.getFeature.bind(this)
-        
+
 
     }
-   
+
 
     componentDidMount() {
         const featureId = this.props.match.params.id;
@@ -75,7 +77,7 @@ class feature extends Component {
             }, {
                     new: true
                 })
-                .then(res => {                   
+                .then(res => {
                     console.log(res.data._id);
                     this.getFeature(this.state.featureId)
                 })
@@ -86,7 +88,7 @@ class feature extends Component {
             console.log(err);
         })
         this.setState({
-            newComment:''
+            newComment: ''
         })
         this.getFeature(this.state.featureId)
     }
@@ -99,6 +101,22 @@ class feature extends Component {
         });
     }
 
+    handleEdit = event => {
+        this.setState({
+            disabled: false,
+            showedit: false
+        })
+    }
+
+    handleSave = event => {
+
+        API.updateFeature()
+
+        this.setState({
+            disabled: true,
+            showedit: true
+        })
+    }
 
     render() {
 
@@ -113,63 +131,75 @@ class feature extends Component {
                     </Helmet>
 
                     <div className='row'>
-                        <h4 className='center-align'>{this.state.title}</h4>
+                        <h4 className='center-align'>{this.state.title}
+                            <Edit
+                                role={this.props.user.role}
+                                showedit={this.state.showedit}
+                                onClick={this.handleEdit}
+                            />
+                        </h4>
                     </div>
 
                     <div className='container'>
                         <div className='center-align'>
                             <img className='responsive-img max-height center-align' src={`/images/${this.state.image}`} alt='Feature' />
                         </div>
-
-                        <div id='feature-content' className='card-panel'>
-                            <div className='row'>
-                                <h6>Description:</h6>
-                                <TextArea 
-                                    name = 'description'
-                                    value = {this.state.description}
-                                    disabled = {this.state.disabled}
-                                    onChange = {this.handleInputChange}
+                        <form>
+                            <div id='feature-content' className='card-panel'>
+                                <div className='row'>
+                                    <h6>Description:</h6>
+                                    <TextArea
+                                        name='description'
+                                        value={this.state.description}
+                                        disabled={this.state.disabled}
+                                        onChange={this.handleInputChange}
                                     />
-                                
-                            </div>
 
-                            <div className='row'>
-                                <div className='col s6'>
-                                    <div>
-                                        <h6>Team:  </h6>
-                                        <Input 
-                                        name = 'team'
-                                        value = {this.state.team}
-                                        disabled = {this.state.disabled}
-                                        onChange = {this.handleInputChange}
-                                        />
-                                    </div>
                                 </div>
 
-                                <div className='col s6'>
-                                    <div>
-                                        <h6>Status: </h6>
-                                        <Input 
-                                        name = 'status'
-                                        value = {this.state.status}
-                                        disabled = {this.state.disabled}
-                                        onChange = {this.handleInputChange}
-                                        />
+                                <div className='row'>
+                                    <div className='col s6'>
+                                        <div>
+                                            <h6>Team:  </h6>
+                                            <Input
+                                                name='team'
+                                                value={this.state.team}
+                                                disabled={this.state.disabled}
+                                                onChange={this.handleInputChange}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className='col s6'>
+                                        <div>
+                                            <h6>Status: </h6>
+                                            <Input
+                                                name='status'
+                                                value={this.state.status}
+                                                disabled={this.state.disabled}
+                                                onChange={this.handleInputChange}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
+                                <div className='row'>
+                                    <FormBtn
+                                        onClick = {this.handleSave}
+                                        dontshow = {!this.state.disabled}
+                                    >Save</FormBtn>
+                                </div>
                             </div>
-
-                        </div>
+                        </form>
 
 
                         <div id='feature-content' className='card-panel'>
                             <div className='row'>
-                            <h6>Add a Comment</h6>
+                                <h6>Add a Comment</h6>
                                 <CommentList
                                     comments={this.state.comments[0]}
                                     addComment={this.addComment}
                                     handleInputChange={this.handleInputChange}
-                                    value = {this.state.newComment}
+                                    value={this.state.newComment}
                                 />
                             </div>
                         </div>
