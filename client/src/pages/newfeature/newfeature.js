@@ -7,7 +7,7 @@ import Edit from '../../components/Edit';
 
 
 
-class feature extends Component {
+class newfeature extends Component {
     constructor() {
         super()
         this.state = {
@@ -31,7 +31,7 @@ class feature extends Component {
         if (imageState !== null) {
             return (
                 <div className='center-align'>
-                    <img className='responsive-img max-height center-align' src={`/images/${this.state.image}`} alt='Feature' />
+                    <img className='responsive-img max-height center-align' src={imageState} alt='Feature' />
                 </div>
             )
 
@@ -65,18 +65,47 @@ class feature extends Component {
         API.createFeature({
             title: this.state.title,
             team: this.state.team,
+            image: this.state.image,
             status: this.state.status,
             description: this.state.description
         }).then(res => {
-             const redir = `/features/${res.data._id}`
-            this.setState({redirectTo: redir})
+            const redir = `/features/${res.data._id}`
+            this.setState({ redirectTo: redir })
 
         }).catch(function (err) {
             console.log(err);
         })
-
-
     }
+
+    handleImageUpload = event => {
+        event.preventDefault();
+        const errs = []
+        const files = Array.from(event.target.files)
+        const formData = new FormData()
+        const types = ['image/png', 'image/jpeg', 'image/gif']
+    
+        files.forEach((file, i) => {
+    
+          if (types.every(type => file.type !== type)) {
+            errs.push(`'${file.type}' is not a supported format`)
+          }
+    
+          if (file.size > 150000) {
+            errs.push(`'${file.name}' is too large, please pick a smaller file`)
+          }
+    
+          formData.append(i, file)
+        })
+
+        API.createImage(formData)
+        .then(res => {
+            const image = res.data[0].url
+            this.setState({image:image})
+        })
+        
+    }
+
+
 
     render() {
 
@@ -91,7 +120,7 @@ class feature extends Component {
                     </Helmet>
 
                     <div className='row'>
-                        <h4 className='center-align'>{this.state.title ? (this.state.title ):('Add a New Feature')}
+                        <h4 className='center-align'>{this.state.title ? (this.state.title) : ('Add a New Feature')}
                             <Edit
                                 role={this.props.user.role}
                                 showedit={this.state.showedit}
@@ -106,13 +135,13 @@ class feature extends Component {
 
                         <form>
                             <div id='feature-content' className='card-panel'>
-                            <div className='row'>
+                                <div className='row'>
                                     <h6>Title:</h6>
                                     <Input
                                         name='title'
                                         value={this.state.title}
                                         onChange={this.handleInputChange}
-                                        placeholder = 'Add a New Feature'
+                                        placeholder='Add a New Feature'
                                     />
                                 </div>
                                 <div className='row'>
@@ -121,7 +150,7 @@ class feature extends Component {
                                         name='description'
                                         value={this.state.description}
                                         onChange={this.handleInputChange}
-                                        placeholder = 'Describe the feature'
+                                        placeholder='Describe the feature'
                                     />
                                 </div>
 
@@ -147,6 +176,16 @@ class feature extends Component {
                                             />
                                         </div>
                                     </div>
+                                    <div className='col s6'>
+                                        <div>
+                                            <h6>Image:  </h6>
+                                            <Input
+                                                type='file'
+                                                name='image'                                                
+                                                onChange={this.handleImageUpload}
+                                            />                                           
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className='row'>
                                     <FormBtn
@@ -166,4 +205,4 @@ class feature extends Component {
 
 }
 
-export default feature;
+export default newfeature;
