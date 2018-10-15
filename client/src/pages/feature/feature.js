@@ -110,12 +110,21 @@ class feature extends Component {
 
     handleSave = event => {
 
-        API.updateFeature()
-
-        this.setState({
-            disabled: true,
-            showedit: true
+        API.updateFeature(this.state.featureId, {
+            title: this.state.title,
+            team: this.state.team,
+            status: this.state.status,
+            description: this.state.description
+        }).then( res => {
+            this.setState({
+                disabled: true,
+                showedit: true
+            })
+        }).catch(function (err) {
+            console.log(err);
         })
+
+        
     }
 
     render() {
