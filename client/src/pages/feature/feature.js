@@ -4,6 +4,7 @@ import './feature.css';
 import CommentList from '../../components/CommentList';
 import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { Input, FormBtn, Select, TextArea } from '../../components/Form';
 
 
 
@@ -19,7 +20,8 @@ class feature extends Component {
             created: '',
             newComment: '',
             featureId: '',
-            redirectTo: ''
+            redirectTo: '',
+            disabled: true
         };
         this.getFeature = this.getFeature.bind(this)
         
@@ -90,20 +92,12 @@ class feature extends Component {
     }
 
 
-
-
-
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
             [name]: value
         });
     }
-
-
-
-
-
 
 
     render() {
@@ -130,23 +124,37 @@ class feature extends Component {
                         <div id='feature-content' className='card-panel'>
                             <div className='row'>
                                 <h6>Description:</h6>
-                                <div>
-                                    {this.state.description}
-                                </div>
+                                <TextArea 
+                                    name = 'description'
+                                    value = {this.state.description}
+                                    disabled = {this.state.disabled}
+                                    onChange = {this.handleInputChange}
+                                    />
+                                
                             </div>
 
                             <div className='row'>
                                 <div className='col s6'>
                                     <div>
                                         <h6>Team:  </h6>
-                                        {this.state.team}
+                                        <Input 
+                                        name = 'team'
+                                        value = {this.state.team}
+                                        disabled = {this.state.disabled}
+                                        onChange = {this.handleInputChange}
+                                        />
                                     </div>
                                 </div>
 
                                 <div className='col s6'>
                                     <div>
                                         <h6>Status: </h6>
-                                        {this.state.status}
+                                        <Input 
+                                        name = 'status'
+                                        value = {this.state.status}
+                                        disabled = {this.state.disabled}
+                                        onChange = {this.handleInputChange}
+                                        />
                                     </div>
                                 </div>
                             </div>
