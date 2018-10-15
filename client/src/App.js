@@ -9,6 +9,7 @@ import logout from './pages/logout';
 import UserProfile from './pages/userprofile';
 import Features from './pages/features';
 import Feature from './pages/feature';
+import NewFeature from './pages/newfeature';
 import axios from 'axios';
 import API from '../src/utils/API';
 
@@ -118,6 +119,10 @@ class App extends Component {
                             />
                             <Route exact path='/features/:id' render={(routeProps) => (
                                 <Feature {...routeProps}{...this.state} />
+                            )}   
+                            />
+                               <Route exact path='/newfeature' render={(routeProps) => (
+                                <NewFeature {...routeProps}{...this.state} />
                             )}   
                             />
                             <Route component={NoMatch} />
