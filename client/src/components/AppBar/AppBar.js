@@ -20,6 +20,7 @@ class NavBar extends Component {
                         <ul id="nav-mobile" className="left hide-on-sm-and-down">
                             <MenuButtons 
                             login = {this.props.loggedIn}
+                            user = {this.props.user}
                             />
                         </ul>
                         <ul id="nav-mobile" className="right hide-on-sm-and-down">        

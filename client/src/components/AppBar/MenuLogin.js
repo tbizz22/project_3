@@ -1,9 +1,7 @@
 import React from 'react'
 import './AppBar.css'
 
-const MenuLogin = (props) => {
-    // const cd = props.user;
-    console.log(props.user)
+const MenuLogin = (props) => {  
 
     if (props.login === 1) {
         return (
