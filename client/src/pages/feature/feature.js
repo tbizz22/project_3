@@ -6,11 +6,12 @@ import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Input, FormBtn, TextArea } from '../../components/Form';
 import Edit from '../../components/Edit';
-import Notifications, {notify} from 'react-notify-toast';
-const toastColor = { 
-    background: '#505050', 
-    text: '#fff' 
-  }
+import Notifications, { notify } from 'react-notify-toast';
+import Preload from '../../components/preloader'
+const toastColor = {
+    background: '#505050',
+    text: '#fff'
+}
 
 
 class feature extends Component {
@@ -27,7 +28,8 @@ class feature extends Component {
             featureId: '',
             redirectTo: '',
             disabled: true,
-            showedit: true
+            showedit: true,
+            loading: true
         };
         this.getFeature = this.getFeature.bind(this)
 
@@ -56,7 +58,9 @@ class feature extends Component {
                     created: r.createdAt,
                     description: r.description,
                     addComment: '',
-                    featureId: r._id
+                    featureId: r._id,
+                    loading: false
+                    
                 })
             })
             .catch(err => { console.log(err) });
@@ -87,10 +91,10 @@ class feature extends Component {
                     console.log(res.data._id);
                     this.getFeature(this.state.featureId)
                 })
-                .catch(error => {              
+                .catch(error => {
                     this.toast(error.message, 'custom', 2000, toastColor)
                 })
-        }).catch(error => {              
+        }).catch(error => {
             this.toast(error.message, 'custom', 2000, toastColor)
         })
         this.setState({
@@ -121,15 +125,15 @@ class feature extends Component {
             team: this.state.team,
             status: this.state.status,
             description: this.state.description
-        }).then( res => {
+        }).then(res => {
             this.setState({
                 disabled: true,
                 showedit: true
             })
-        }).catch(error => {              
+        }).catch(error => {
             this.toast(error.message, 'custom', 2000, toastColor)
         })
-        
+
     }
 
     render() {
@@ -138,89 +142,94 @@ class feature extends Component {
             return <Redirect to={{ pathname: this.state.redirectTo }} />
         } else {
 
-            return (
-                <div>
-                    <Helmet>
-                        <style>{'body { background-color: #778899 ; }'}</style>
-                    </Helmet>
-                    <Notifications />
-                    <div className='row'>
-                        <h4 className='center-align'>{this.state.title}
-                            <Edit
-                                role={this.props.user.role}
-                                showedit={this.state.showedit}
-                                onClick={this.handleEdit}
-                            />
-                        </h4>
-                    </div>
+            if (this.state.loading === true) {
+                return <Preload />
+            } else {
 
-                    <div className='container'>
-                        <div className='center-align'>
-                            <img className='responsive-img max-height center-align' src={this.state.image} alt='Feature' />
-                        </div>
-                        <form>
-                            <div id='feature-content' className='card-panel'>
-                                <div className='row'>
-                                    <h6>Description:</h6>
-                                    <TextArea
-                                        name='description'
-                                        value={this.state.description}
-                                        disabled={this.state.disabled}
-                                        onChange={this.handleInputChange}
-                                    />
-
-                                </div>
-
-                                <div className='row'>
-                                    <div className='col s6'>
-                                        <div>
-                                            <h6>Team:  </h6>
-                                            <Input
-                                                name='team'
-                                                value={this.state.team}
-                                                disabled={this.state.disabled}
-                                                onChange={this.handleInputChange}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className='col s6'>
-                                        <div>
-                                            <h6>Status: </h6>
-                                            <Input
-                                                name='status'
-                                                value={this.state.status}
-                                                disabled={this.state.disabled}
-                                                onChange={this.handleInputChange}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='row'>
-                                    <FormBtn
-                                        onClick = {this.handleSave}
-                                        dontshow = {!this.state.disabled}
-                                    >Save</FormBtn>
-                                </div>
-                            </div>
-                        </form>
-
-
-                        <div id='comment-content' className='card-panel'>
-                            <div className='row'>
-                                <h6>Add a Comment</h6>
-                                <CommentList
-                                    comments={this.state.comments[0]}
-                                    addComment={this.addComment}
-                                    handleInputChange={this.handleInputChange}
-                                    value={this.state.newComment}
+                return (
+                    <div>
+                        <Helmet>
+                            <style>{'body { background-color: #778899 ; }'}</style>
+                        </Helmet>
+                        <Notifications />
+                        <div className='row'>
+                            <h4 className='center-align'>{this.state.title}
+                                <Edit
+                                    role={this.props.user.role}
+                                    showedit={this.state.showedit}
+                                    onClick={this.handleEdit}
                                 />
-                            </div>
+                            </h4>
                         </div>
 
+                        <div className='container'>
+                            <div className='center-align'>
+                                <img className='responsive-img max-height center-align' src={this.state.image} alt='Feature' />
+                            </div>
+                            <form>
+                                <div id='feature-content' className='card-panel'>
+                                    <div className='row'>
+                                        <h6>Description:</h6>
+                                        <TextArea
+                                            name='description'
+                                            value={this.state.description}
+                                            disabled={this.state.disabled}
+                                            onChange={this.handleInputChange}
+                                        />
+
+                                    </div>
+
+                                    <div className='row'>
+                                        <div className='col s6'>
+                                            <div>
+                                                <h6>Team:  </h6>
+                                                <Input
+                                                    name='team'
+                                                    value={this.state.team}
+                                                    disabled={this.state.disabled}
+                                                    onChange={this.handleInputChange}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className='col s6'>
+                                            <div>
+                                                <h6>Status: </h6>
+                                                <Input
+                                                    name='status'
+                                                    value={this.state.status}
+                                                    disabled={this.state.disabled}
+                                                    onChange={this.handleInputChange}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='row'>
+                                        <FormBtn
+                                            onClick={this.handleSave}
+                                            dontshow={!this.state.disabled}
+                                        >Save</FormBtn>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                            <div id='comment-content' className='card-panel'>
+                                <div className='row'>
+                                    <h6>Add a Comment</h6>
+                                    <CommentList
+                                        comments={this.state.comments[0]}
+                                        addComment={this.addComment}
+                                        handleInputChange={this.handleInputChange}
+                                        value={this.state.newComment}
+                                    />
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
-            )
+                )
+            }
         }
     }
 
