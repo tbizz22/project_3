@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
-import ReactDOM from 'react-dom';
 import { Helmet } from 'react-helmet';
 import Edit from '../../components/Edit';
 import { Input, FormBtn } from '../../components/Form';
 import Preload from '../../components/preloader';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
+
 
 
 class userprofile extends Component {
