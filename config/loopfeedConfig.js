@@ -24,7 +24,8 @@ const config = {
         2: 'Account Manager',
         3: 'Sales',
         4: 'Technology',
-        5: 'Other'
+        5: 'Other',
+        6: 'admin'
     }]
 }
 
