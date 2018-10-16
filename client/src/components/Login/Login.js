@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Input, FormBtn } from '../../components/Form';
 import axios from 'axios';
+import Notifications, {notify} from 'react-notify-toast';
+const toastColor = { 
+    background: '#505050', 
+    text: '#fff' 
+  }
 
 class Login extends Component {
     constructor() {
@@ -15,12 +20,16 @@ class Login extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
+    
+
     componentDidMount() {
         console.log('mounted');
+        
     };
 
+    toast = notify.createShowQueue();
 
-    handleInputChange = event => {       
+    handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
             [name]: value
@@ -38,21 +47,12 @@ class Login extends Component {
                 console.log('login response: ')
                 console.log(response)
                 if (response.status === 200) {
-                    // update App.js state
-                    // this.props.updateUser({
-                    //     loggedIn: true,
-                    //     user: response.data.user,
-                    //     foo:"flin"
-                    // })
-                    // update the state to redirect to home
                     this.setState({
                         redirectTo: '/features'
                     })
                 }
-            }).catch(error => {
-                console.log('login error: ')
-                console.log(error);
-                
+            }).catch(error => {              
+                this.toast(error.message, 'custom', 2000, toastColor)
             })
     }
 
@@ -62,6 +62,7 @@ class Login extends Component {
         } else {
             return (
                 <div className='container'>
+                <Notifications />
                     <form>
                         <div className='row'>
                             <div className='input-field col s12'>
@@ -101,10 +102,6 @@ class Login extends Component {
     };
 
 }
-
-
-
-
 
 
 export default Login;

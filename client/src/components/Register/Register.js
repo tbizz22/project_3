@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Input, FormBtn, Select } from '../../components/Form';
 import { Redirect } from 'react-router-dom'
 import API from "../../utils/API";
+import Notifications, {notify} from 'react-notify-toast';
+const toastColor = { 
+    background: '#505050', 
+    text: '#fff' 
+  }
 
 
 class Register extends Component {
@@ -18,12 +23,12 @@ class Register extends Component {
 
 
     componentDidMount() {
-        console.log('mounted');
+        
     };
 
+    toast = notify.createShowQueue();
 
-    handleInputChange = event => {
-        console.log(event)
+    handleInputChange = event => {       
         const { name, value } = event.target;
         this.setState({
             [name]: value
@@ -43,6 +48,10 @@ class Register extends Component {
         })
             .then(res => this.setState({
                 redirectTo: '/login'
+            })
+            .catch(error => {  
+                this.console.log(error)            
+                this.toast(error.errors.message, 'custom', 2000, toastColor)
             }))
 
     }
@@ -53,6 +62,7 @@ class Register extends Component {
         } else {
             return (
                 <div>
+                    <Notifications />
                     <div className='row'>
                         <h4 className='center-align'>Register</h4>
                     </div>

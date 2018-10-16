@@ -4,7 +4,11 @@ import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Input, FormBtn, TextArea } from '../../components/Form';
 import Edit from '../../components/Edit';
-
+import Notifications, {notify} from 'react-notify-toast';
+const toastColor = { 
+    background: '#505050', 
+    text: '#fff' 
+  }
 
 
 class newfeature extends Component {
@@ -24,6 +28,8 @@ class newfeature extends Component {
     componentDidMount() {
 
     };
+   
+    toast = notify.createShowQueue();
 
 
     image = (imageState) => {
@@ -72,8 +78,8 @@ class newfeature extends Component {
             const redir = `/features/${res.data._id}`
             this.setState({ redirectTo: redir })
 
-        }).catch(function (err) {
-            console.log(err);
+        }).catch(error => {              
+            this.toast(error.message, 'custom', 2000, toastColor)
         })
     }
 
@@ -101,6 +107,8 @@ class newfeature extends Component {
         .then(res => {
             const image = res.data[0].url
             this.setState({image:image})
+        }).catch(error => {              
+            this.toast(error.message, 'custom', 2000, toastColor)
         })
         
     }
@@ -118,7 +126,7 @@ class newfeature extends Component {
                     <Helmet>
                         <style>{'body { background-color: #778899 ; }'}</style>
                     </Helmet>
-
+                    <Notifications />
                     <div className='row'>
                         <h4 className='center-align'>{this.state.title ? (this.state.title) : ('Add a New Feature')}
                             <Edit
