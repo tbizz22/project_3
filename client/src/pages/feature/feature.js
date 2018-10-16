@@ -6,7 +6,11 @@ import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Input, FormBtn, TextArea } from '../../components/Form';
 import Edit from '../../components/Edit';
-
+import Notifications, {notify} from 'react-notify-toast';
+const toastColor = { 
+    background: '#505050', 
+    text: '#fff' 
+  }
 
 
 class feature extends Component {
@@ -36,6 +40,8 @@ class feature extends Component {
         this.setState({ featureId: featureId })
         this.getFeature(featureId);
     };
+
+    toast = notify.createShowQueue();
 
     getFeature = (id) => {
         API.getFeature(id)
@@ -81,11 +87,11 @@ class feature extends Component {
                     console.log(res.data._id);
                     this.getFeature(this.state.featureId)
                 })
-                .catch(function (err) {
-                    console.log(err);
+                .catch(error => {              
+                    this.toast(error.message, 'custom', 2000, toastColor)
                 })
-        }).catch(function (err) {
-            console.log(err);
+        }).catch(error => {              
+            this.toast(error.message, 'custom', 2000, toastColor)
         })
         this.setState({
             newComment: ''
@@ -120,10 +126,9 @@ class feature extends Component {
                 disabled: true,
                 showedit: true
             })
-        }).catch(function (err) {
-            console.log(err);
+        }).catch(error => {              
+            this.toast(error.message, 'custom', 2000, toastColor)
         })
-
         
     }
 
@@ -138,7 +143,7 @@ class feature extends Component {
                     <Helmet>
                         <style>{'body { background-color: #778899 ; }'}</style>
                     </Helmet>
-
+                    <Notifications />
                     <div className='row'>
                         <h4 className='center-align'>{this.state.title}
                             <Edit
