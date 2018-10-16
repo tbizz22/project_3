@@ -15,7 +15,7 @@ class NavBar extends Component {
         return (
             <div>
                 <nav>
-                    <div className="nav-wrapper">
+                    <div className="nav-wrapper blue darken-4">
                         <a href="/" className="brand-logo center"><i className="extra-large black-text material-icons">repeat</i></a>
                         <ul id="nav-mobile" className="left hide-on-sm-and-down">
                             <MenuButtons 

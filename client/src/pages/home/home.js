@@ -19,7 +19,7 @@ class home extends Component {
                 <div className='container'>
                     <div className="row">
 
-                        <div className="center-align mt40 card p20 grey lighten-2">
+                        <div className="center-align mt40 card p20 z-depth-5">
                             <span>
                                 <i className="fas fa-retweet fa-8x black-text darken-2"></i>
                             </span>
