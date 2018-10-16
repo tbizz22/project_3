@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
+import ReactDOM from 'react-dom';
 import { Helmet } from 'react-helmet';
 import Edit from '../../components/Edit';
 import { Input, FormBtn } from '../../components/Form';
 import Preload from '../../components/preloader';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 
 
 class userprofile extends Component {
@@ -20,7 +24,8 @@ class userprofile extends Component {
             created: '',
             showedit: true,
             disabled: true,
-            loading: true
+            loading: true,
+            labelWidth: 0
         };
     }
 
@@ -28,6 +33,9 @@ class userprofile extends Component {
         const userId = this.props.match.params.id;
         this.setState({ userId: userId })
         this.getUser(userId);
+        this.setState({
+            labelWidth: 100
+        });
     }
 
     getUser = (id) => {
@@ -155,7 +163,7 @@ class userprofile extends Component {
                                                     onChange={this.handleInputChange}
                                                 />
                                             </div>
-                                            <div className='row'>
+                                            {/* <div className='row'>
                                                 <h6>Role: </h6>
                                                 <Input
                                                     name='role'
@@ -163,6 +171,29 @@ class userprofile extends Component {
                                                     disabled={this.state.disabled}
                                                     onChange={this.handleInputChange}
                                                 />
+                                            </div> */}
+
+
+                                            <div className='row'>
+                                            <h6>Role: </h6>
+                                                <Select
+                                                    value={this.state.role}
+                                                    onChange={this.handleInputChange}
+                                                    inputProps={{
+                                                        name: 'role',
+                                                        id: 'role',
+                                                    }}
+                                                    placeholder = 'Choose an Option'
+                                                    disabled={this.state.disabled}
+                                                >
+                                                    <MenuItem value={'Help Desk'}>Help Desk</MenuItem>
+                                                    <MenuItem value={'Account Manager'}>Account Manager</MenuItem>
+                                                    <MenuItem value={'Sales'}>Sales</MenuItem>
+                                                    <MenuItem value={'Technology'}>Technology</MenuItem>
+                                                    <MenuItem value={'Other'}>Other</MenuItem>
+                                                    <MenuItem value={'admin'}>admin</MenuItem>
+
+                                                </Select>
                                             </div>
                                             <div className='row'>
                                                 <h6>Created: </h6>
