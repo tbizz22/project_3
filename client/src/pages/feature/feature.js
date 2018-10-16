@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet';
 import { Input, FormBtn, TextArea } from '../../components/Form';
 import Edit from '../../components/Edit';
 import Notifications, { notify } from 'react-notify-toast';
-import Preload from '../../components/preloader'
+import Preload from '../../components/preloader';
 const toastColor = {
     background: '#505050',
     text: '#fff'
@@ -75,6 +75,7 @@ class feature extends Component {
         e.preventDefault();
         const body = this.state.newComment;
         const user = this.props.user._id;
+        this.setState({loading:true})
 
         API.createFeedback({
             body: body,
@@ -128,7 +129,8 @@ class feature extends Component {
         }).then(res => {
             this.setState({
                 disabled: true,
-                showedit: true
+                showedit: true,
+                loading: false
             })
         }).catch(error => {
             this.toast(error.message, 'custom', 2000, toastColor)
