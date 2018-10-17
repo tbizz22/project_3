@@ -8,6 +8,8 @@ import { Input, FormBtn, TextArea } from '../../components/Form';
 import Edit from '../../components/Edit';
 import Notifications, { notify } from 'react-notify-toast';
 import Preload from '../../components/preloader';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 const toastColor = {
     background: '#505050',
     text: '#fff'
@@ -20,8 +22,8 @@ class feature extends Component {
         this.state = {
             title: '',
             comments: [],
-            status: '',
-            team: '',
+            status: 'none',
+            team: 'none',
             image: '',
             created: '',
             newComment: '',
@@ -60,7 +62,7 @@ class feature extends Component {
                     addComment: '',
                     featureId: r._id,
                     loading: false
-                    
+
                 })
             })
             .catch(err => { console.log(err) });
@@ -75,7 +77,7 @@ class feature extends Component {
         e.preventDefault();
         const body = this.state.newComment;
         const user = this.props.user._id;
-        this.setState({loading:true})
+        this.setState({ loading: true })
 
         API.createFeedback({
             body: body,
@@ -185,24 +187,54 @@ class feature extends Component {
                                         <div className='col s6'>
                                             <div>
                                                 <h6>Team:  </h6>
-                                                <Input
-                                                    name='team'
+                                                <Select
                                                     value={this.state.team}
-                                                    disabled={this.state.disabled}
                                                     onChange={this.handleInputChange}
-                                                />
+                                                    inputProps={{
+                                                        name: 'team',
+                                                        id: 'team',
+                                                    }}
+                                                    disabled={this.state.disabled}
+                                                    fullWidth
+                                                >   
+                                                <MenuItem value={'none'} disabled>
+                                                    Choose an Option
+                                                </MenuItem>
+                                                <MenuItem value={'Alpha'}>Alpha</MenuItem>
+                                                <MenuItem value={'Bravo'}>Bravo</MenuItem>
+                                                <MenuItem value={'Charlie'}>Charlie</MenuItem>
+                                                <MenuItem value={'Delta'}>Delta</MenuItem>
+                                                <MenuItem value={'Other'}>Other</MenuItem>
+                                                </Select>
                                             </div>
                                         </div>
 
                                         <div className='col s6'>
                                             <div>
                                                 <h6>Status: </h6>
-                                                <Input
-                                                    name='status'
+                                                <Select
                                                     value={this.state.status}
-                                                    disabled={this.state.disabled}
                                                     onChange={this.handleInputChange}
-                                                />
+                                                    inputProps={{
+                                                        name: 'status',
+                                                        id: 'status',
+                                                    }}
+                                                    disabled={this.state.disabled}
+                                                    fullWidth
+                                                >   
+                                                <MenuItem value={'none'} disabled>
+                                                    Choose an Option
+                                                </MenuItem>
+                                                <MenuItem value={'In Design'}>In Design</MenuItem>
+                                                <MenuItem value={'In Development'}>In Development</MenuItem>
+                                                <MenuItem value={'Beta'}>Beta</MenuItem>
+                                                <MenuItem value={'Limted Availability'}>Limited Availability</MenuItem>
+                                                <MenuItem value={'General Availability'}>General Availability</MenuItem>
+                                                <MenuItem value={'Other'}>Other</MenuItem>
+
+                                            </Select>
+
+
                                             </div>
                                         </div>
                                     </div>

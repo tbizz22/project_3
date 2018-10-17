@@ -4,11 +4,13 @@ import { Redirect } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Input, FormBtn, TextArea } from '../../components/Form';
 import Edit from '../../components/Edit';
-import Notifications, {notify} from 'react-notify-toast';
-const toastColor = { 
-    background: '#505050', 
-    text: '#fff' 
-  }
+import Notifications, { notify } from 'react-notify-toast';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+const toastColor = {
+    background: '#505050',
+    text: '#fff'
+}
 
 
 class newfeature extends Component {
@@ -16,8 +18,8 @@ class newfeature extends Component {
         super()
         this.state = {
             title: '',
-            status: '',
-            team: '',
+            status: 'none',
+            team: 'none',
             image: null,
             disabled: false,
             redirectTo: null
@@ -28,27 +30,20 @@ class newfeature extends Component {
     componentDidMount() {
 
     };
-   
+
     toast = notify.createShowQueue();
 
 
     image = (imageState) => {
-
         if (imageState !== null) {
             return (
                 <div className='center-align'>
                     <img className='responsive-img max-height center-align' src={imageState} alt='Feature' />
                 </div>
             )
-
         } else {
             return null
         }
-
-
-
-
-
     }
 
 
@@ -78,7 +73,7 @@ class newfeature extends Component {
             const redir = `/features/${res.data._id}`
             this.setState({ redirectTo: redir })
 
-        }).catch(error => {              
+        }).catch(error => {
             this.toast(error.message, 'custom', 2000, toastColor)
         })
     }
@@ -89,28 +84,27 @@ class newfeature extends Component {
         const files = Array.from(event.target.files)
         const formData = new FormData()
         const types = ['image/png', 'image/jpeg', 'image/gif']
-    
+
         files.forEach((file, i) => {
-    
-          if (types.every(type => file.type !== type)) {
-            errs.push(`'${file.type}' is not a supported format`)
-          }
-    
-          if (file.size > 150000) {
-            errs.push(`'${file.name}' is too large, please pick a smaller file`)
-          }
-    
-          formData.append(i, file)
+
+            if (types.every(type => file.type !== type)) {
+                errs.push(`'${file.type}' is not a supported format`)
+            }
+
+            if (file.size > 150000) {
+                errs.push(`'${file.name}' is too large, please pick a smaller file`)
+            }
+
+            formData.append(i, file)
         })
 
         API.createImage(formData)
-        .then(res => {
-            const image = res.data[0].url
-            this.setState({image:image})
-        }).catch(error => {              
-            this.toast(error.message, 'custom', 2000, toastColor)
-        })
-        
+            .then(res => {
+                const image = res.data[0].url
+                this.setState({ image: image })
+            }).catch(error => {
+                this.toast(error.message, 'custom', 2000, toastColor)
+            })
     }
 
 
@@ -166,22 +160,51 @@ class newfeature extends Component {
                                     <div className='col s6'>
                                         <div>
                                             <h6>Team:  </h6>
-                                            <Input
-                                                name='team'
+                                            <Select
                                                 value={this.state.team}
                                                 onChange={this.handleInputChange}
-                                            />
+                                                inputProps={{
+                                                    name: 'team',
+                                                    id: 'team',
+                                                }}
+                                                disabled={this.state.disabled}
+                                                fullWidth
+                                            >
+                                                <MenuItem value={'none'} disabled>
+                                                    Choose an Option
+                                                </MenuItem>
+                                                <MenuItem value={'Alpha'}>Alpha</MenuItem>
+                                                <MenuItem value={'Bravo'}>Bravo</MenuItem>
+                                                <MenuItem value={'Charlie'}>Charlie</MenuItem>
+                                                <MenuItem value={'Delta'}>Delta</MenuItem>
+                                                <MenuItem value={'Other'}>Other</MenuItem>
+                                            </Select>
                                         </div>
                                     </div>
 
                                     <div className='col s6'>
                                         <div>
                                             <h6>Status: </h6>
-                                            <Input
-                                                name='status'
+                                            <Select
                                                 value={this.state.status}
                                                 onChange={this.handleInputChange}
-                                            />
+                                                inputProps={{
+                                                    name: 'status',
+                                                    id: 'status',
+                                                }}
+                                                disabled={this.state.disabled}
+                                                fullWidth
+                                            >
+                                                <MenuItem value={'none'} disabled>
+                                                    Choose an Option
+                                                </MenuItem>
+                                                <MenuItem value={'In Design'}>In Design</MenuItem>
+                                                <MenuItem value={'In Development'}>In Development</MenuItem>
+                                                <MenuItem value={'Beta'}>Beta</MenuItem>
+                                                <MenuItem value={'Limted Availability'}>Limited Availability</MenuItem>
+                                                <MenuItem value={'General Availability'}>General Availability</MenuItem>
+                                                <MenuItem value={'Other'}>Other</MenuItem>
+                                            </Select>
                                         </div>
                                     </div>
                                     <div className='col s6'>
@@ -189,9 +212,9 @@ class newfeature extends Component {
                                             <h6>Image:  </h6>
                                             <Input
                                                 type='file'
-                                                name='image'                                                
+                                                name='image'
                                                 onChange={this.handleImageUpload}
-                                            />                                           
+                                            />
                                         </div>
                                     </div>
                                 </div>

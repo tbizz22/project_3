@@ -162,17 +162,7 @@ class userprofile extends Component {
                                                     onChange={this.handleInputChange}
                                                 />
                                             </div>
-                                            {/* <div className='row'>
-                                                <h6>Role: </h6>
-                                                <Input
-                                                    name='role'
-                                                    value={this.state.role}
-                                                    disabled={this.state.disabled}
-                                                    onChange={this.handleInputChange}
-                                                />
-                                            </div> */}
-
-
+                                  
                                             <div className='row'>
                                             <h6>Role: </h6>
                                                 <Select
@@ -184,6 +174,7 @@ class userprofile extends Component {
                                                     }}
                                                     placeholder = 'Choose an Option'
                                                     disabled={this.state.disabled}
+                                                    fullWidth
                                                 >
                                                     <MenuItem value={'Help Desk'}>Help Desk</MenuItem>
                                                     <MenuItem value={'Account Manager'}>Account Manager</MenuItem>
