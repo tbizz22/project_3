@@ -7,7 +7,7 @@ const CommentList = props => {
     const commentsList = props.comments;
 
     const cList = () => {
-        if (commentsList === undefined) {
+        if (commentsList[0] === undefined) {
             return (
                 <div>
                     You dont have any comments
