@@ -12,6 +12,8 @@ import Feature from './pages/feature';
 import NewFeature from './pages/newfeature';
 import axios from 'axios';
 import API from '../src/utils/API';
+import Preload from './components/preloader';
+
 
 class App extends Component {
     constructor() {
@@ -21,6 +23,7 @@ class App extends Component {
             userName: 'NoOne',
             role: 'Nothing',
             loggedIn: 0,
+            loading: true
         }
         this.getUser = this.getUser.bind(this)
         this.componentDidMount = this.componentDidMount.bind(this)
@@ -45,9 +48,10 @@ class App extends Component {
             if (response.status === 200) {
                 this.setState({
                     loggedIn: false,
-                    userid: 1,
-                    userName: 'NoOne',
-                    role: 'Nothing'
+                    userName: '',
+                    role: '',
+                    userid: '',
+                    loading: false
                 })
             }
         }).catch(error => {
@@ -72,7 +76,8 @@ class App extends Component {
                             userid: res.data._id,
                             userName: res.data.userName,
                             role: res.data.role,
-                            loggedIn: 1
+                            loggedIn: 1,
+                            loading: false
                         })
                     }
                     )
@@ -82,7 +87,8 @@ class App extends Component {
                     loggedIn: false,
                     userName: '',
                     role: '',
-                    userid: ''
+                    userid: '',
+                    loading: false
                 })
             }
         })
@@ -92,52 +98,57 @@ class App extends Component {
 
 
     render() {
-        return (
-            <Router>
-                <div>
-                    <header>
-                        <NavBar
-                            loggedIn={this.state.loggedIn}
-                            logout={this.logout}
-                            userid={this.state.userid}
-                            role={this.state.role}
-                        />
-                    </header>
+        if (this.state.loading === true) {
+            return <Preload />
+        } else {
 
-                    <main>
-                        <Switch>
-                            <Route exact path='/' component={home} />
-                            <Route exact path='/home' component={home} />
-                            <Route exact path='/login' render={(routeProps) => (
-                                <Login {...routeProps} {...this.updateUser} />
-                            )}
+            return (
+                <Router>
+                    <div>
+                        <header>
+                            <NavBar
+                                loggedIn={this.state.loggedIn}
+                                logout={this.logout}
+                                userid={this.state.userid}
+                                role={this.state.role}
                             />
-                            <Route exact path='/register' component={register} />
-                            <Route exact path='/logout' component={logout} />
-                            <Route exact path='/user/:id' render={(routeProps) => (
-                                <UserProfile {...routeProps}{...this.state} />
-                            )}
+                        </header>
 
-                            />
-                            <Route exact path='/features' render={(routeProps) => (
-                                <Features {...routeProps}{...this.state} />
-                            )}
-                            />
-                            <Route exact path='/features/:id' render={(routeProps) => (
-                                <Feature {...routeProps}{...this.state} />
-                            )}
-                            />
-                            <Route exact path='/newfeature' render={(routeProps) => (
-                                <NewFeature {...routeProps}{...this.state} />
-                            )}
-                            />
-                            <Route component={NoMatch} />
+                        <main>
+                            <Switch>
+                                <Route exact path='/' component={home} />
+                                <Route exact path='/home' component={home} />
+                                <Route exact path='/login' render={(routeProps) => (
+                                    <Login {...routeProps} {...this.updateUser} />
+                                )}
+                                />
+                                <Route exact path='/register' component={register} />
+                                <Route exact path='/logout' component={logout} />
+                                <Route exact path='/user/:id' render={(routeProps) => (
+                                    <UserProfile {...routeProps}{...this.state} />
+                                )}
 
-                        </Switch>
-                    </main>
-                </div>
-            </Router>
-        )
+                                />
+                                <Route exact path='/features' render={(routeProps) => (
+                                    <Features {...routeProps}{...this.state} />
+                                )}
+                                />
+                                <Route exact path='/features/:id' render={(routeProps) => (
+                                    <Feature {...routeProps}{...this.state} />
+                                )}
+                                />
+                                <Route exact path='/newfeature' render={(routeProps) => (
+                                    <NewFeature {...routeProps}{...this.state} />
+                                )}
+                                />
+                                <Route component={NoMatch} />
+
+                            </Switch>
+                        </main>
+                    </div>
+                </Router>
+            )
+        }
     }
 }
 
