@@ -7,6 +7,7 @@ import Edit from '../../components/Edit';
 import Notifications, { notify } from 'react-notify-toast';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
 const toastColor = {
     background: '#505050',
     text: '#fff'
@@ -22,7 +23,11 @@ class newfeature extends Component {
             team: 'none',
             image: null,
             disabled: false,
-            redirectTo: null
+            redirectTo: null,
+            expectedDate: 'none',
+            valueStatement: '',
+            useCase: '',
+            primaryPersona: 'none'
         };
     }
 
@@ -68,7 +73,11 @@ class newfeature extends Component {
             team: this.state.team,
             image: this.state.image,
             status: this.state.status,
-            description: this.state.description
+            description: this.state.description,
+            expectedDate: this.state.expectedDate,
+            valueStatement: this.state.valueStatement,
+            useCase: this.state.useCase,
+            primaryPersona: this.state.primaryPersona
         }).then(res => {
             const redir = `/features/${res.data._id}`
             this.setState({ redirectTo: redir })
@@ -155,6 +164,76 @@ class newfeature extends Component {
                                         placeholder='Describe the feature'
                                     />
                                 </div>
+                                <div className='row'>
+                                    <h6>Use Cases:</h6>
+                                    <TextArea
+                                        name='useCase'
+                                        value={this.state.useCase}
+                                        onChange={this.handleInputChange}
+                                        placeholder='Describe the feature use cases'
+                                    />
+                                </div>
+                                <div className='row'>
+                                    <h6>Value Statements:</h6>
+                                    <TextArea
+                                        name='valueStatement'
+                                        value={this.state.valueStatement}
+                                        onChange={this.handleInputChange}
+                                        placeholder='Describe the feature value statements'
+                                    />
+                                </div>
+
+
+                                <div className='row'>
+                                    <div className='col s6'>
+                                        <div>
+                                            <h6>Primary Persona:  </h6>
+                                            <Select
+                                                value={this.state.primaryPersona}
+                                                onChange={this.handleInputChange}
+                                                inputProps={{
+                                                    name: 'primaryPersona',
+                                                    id: 'primaryPersona'
+                                                }}
+                                                fullWidth
+                                            >
+                                                <MenuItem value={'none'} disabled>
+                                                    Choose an Option
+                                                </MenuItem>
+                                                <MenuItem value={'Internal'}>Internal</MenuItem>
+                                                <MenuItem value={'Recruiter'}>Recruiter</MenuItem>
+                                                <MenuItem value={'Hiring Manager'}>Hiring Manager</MenuItem>
+                                                <MenuItem value={'Candidate'}>Candidate</MenuItem>
+                                                <MenuItem value={'Other'}>Other</MenuItem>
+                                            </Select>
+                                        </div>
+                                    </div>
+                                    <div className='col s6'>
+                                        <div>
+                                            <h6>Expected Delivery Date: </h6>
+                                            <Select
+                                                value={this.state.expectedDate}
+                                                onChange={this.handleInputChange}
+                                                inputProps={{
+                                                    name: 'expectedDate',
+                                                    id: 'expectedDate'
+                                                }}
+                                                fullWidth
+                                            >
+                                                <MenuItem value={'none'} disabled>
+                                                    Choose an Option
+                                                </MenuItem>
+                                                <MenuItem value={'Q1 2019'}>Q1 2019</MenuItem>
+                                                <MenuItem value={'Q2 2019'}>Q2 2019</MenuItem>
+                                                <MenuItem value={'Q3 2019'}>Q3 2019</MenuItem>
+                                                <MenuItem value={'Q4 2019'}>Q4 2019</MenuItem>
+                                                <MenuItem value={'1H 2020'}>1H 2020</MenuItem>
+                                                <MenuItem value={'1H 2020'}>2H 2020</MenuItem>
+                                                <MenuItem value={'tbd'}>Other</MenuItem>
+                                            </Select>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div className='row'>
                                     <div className='col s6'>
@@ -165,9 +244,9 @@ class newfeature extends Component {
                                                 onChange={this.handleInputChange}
                                                 inputProps={{
                                                     name: 'team',
-                                                    id: 'team',
+                                                    id: 'team'
                                                 }}
-                                                disabled={this.state.disabled}
+
                                                 fullWidth
                                             >
                                                 <MenuItem value={'none'} disabled>
@@ -192,7 +271,7 @@ class newfeature extends Component {
                                                     name: 'status',
                                                     id: 'status',
                                                 }}
-                                                disabled={this.state.disabled}
+
                                                 fullWidth
                                             >
                                                 <MenuItem value={'none'} disabled>

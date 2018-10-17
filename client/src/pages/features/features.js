@@ -67,6 +67,9 @@ class features extends Component {
                                     createdAt={feature.createdAt}
                                     team={feature.team}
                                     id={feature._id}
+                                    primaryPersona = {feature.primaryPersona}
+                                    expectedDate = {feature.expectedDate}
+                                    description = {feature.description}
                                 />
                             )
                         })
