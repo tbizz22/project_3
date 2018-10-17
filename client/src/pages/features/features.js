@@ -70,6 +70,7 @@ class features extends Component {
                                     primaryPersona = {feature.primaryPersona}
                                     expectedDate = {feature.expectedDate}
                                     description = {feature.description}
+                                    image = {feature.image}
                                 />
                             )
                         })
