@@ -31,7 +31,11 @@ class feature extends Component {
             redirectTo: '',
             disabled: true,
             showedit: true,
-            loading: true
+            loading: true,
+            expectedDate: 'none',
+            valueStatement: '',
+            useCase: '',
+            primaryPersona: 'none'
         };
         this.getFeature = this.getFeature.bind(this)
 
@@ -61,7 +65,11 @@ class feature extends Component {
                     description: r.description,
                     addComment: '',
                     featureId: r._id,
-                    loading: false
+                    loading: false,
+                    expectedDate: r.expectedDate,
+                    valueStatement: r.valueStatement,
+                    useCase: r.useCase,
+                    primaryPersona: r.primaryPersona
 
                 })
             })
@@ -127,7 +135,11 @@ class feature extends Component {
             title: this.state.title,
             team: this.state.team,
             status: this.state.status,
-            description: this.state.description
+            description: this.state.description,
+            expectedDate: this.state.expectedDate,
+            valueStatement: this.state.valueStatement,
+            useCase: this.state.useCase,
+            primaryPersona: this.state.primaryPersona
         }).then(res => {
             this.setState({
                 disabled: true,
@@ -179,8 +191,82 @@ class feature extends Component {
                                             value={this.state.description}
                                             disabled={this.state.disabled}
                                             onChange={this.handleInputChange}
+                                            placeholder='Describe the feature'
                                         />
+                                    </div>
+                                    <div className='row'>
+                                        <h6>Use Cases:</h6>
+                                        <TextArea
+                                            name='useCase'
+                                            value={this.state.useCase}
+                                            onChange={this.handleInputChange}
+                                            placeholder='Describe the feature use cases'
+                                            disabled={this.state.disabled}
+                                        />
+                                    </div>
+                                    <div className='row'>
+                                        <h6>Value Statements:</h6>
+                                        <TextArea
+                                            name='valueStatement'
+                                            value={this.state.valueStatement}
+                                            onChange={this.handleInputChange}
+                                            placeholder='Describe the feature value statements'
+                                            disabled={this.state.disabled}
+                                        />
+                                    </div>
 
+
+                                    <div className='row'>
+                                        <div className='col s6'>
+                                            <div>
+                                                <h6>Primary Persona:  </h6>
+                                                <Select
+                                                    value={this.state.primaryPersona}
+                                                    onChange={this.handleInputChange}
+                                                    inputProps={{
+                                                        name: 'primaryPersona',
+                                                        id: 'primaryPersona'
+                                                    }}
+                                                    fullWidth
+                                                    disabled={this.state.disabled}
+                                                >
+                                                    <MenuItem value={'none'} disabled>
+                                                        Choose an Option
+                                                </MenuItem>
+                                                    <MenuItem value={'Internal'}>Internal</MenuItem>
+                                                    <MenuItem value={'Recruiter'}>Recruiter</MenuItem>
+                                                    <MenuItem value={'Hiring Manager'}>Hiring Manager</MenuItem>
+                                                    <MenuItem value={'Candidate'}>Candidate</MenuItem>
+                                                    <MenuItem value={'Other'}>Other</MenuItem>
+                                                </Select>
+                                            </div>
+                                        </div>
+                                        <div className='col s6'>
+                                            <div>
+                                                <h6>Expected Delivery Date: </h6>
+                                                <Select
+                                                    value={this.state.expectedDate}
+                                                    onChange={this.handleInputChange}
+                                                    inputProps={{
+                                                        name: 'expectedDate',
+                                                        id: 'expectedDate'
+                                                    }}
+                                                    fullWidth
+                                                    disabled={this.state.disabled}
+                                                >
+                                                    <MenuItem value={'none'} disabled>
+                                                        Choose an Option
+                                                </MenuItem>
+                                                    <MenuItem value={'Q1 19'}>Q1 '19</MenuItem>
+                                                    <MenuItem value={'Q2 19'}>Q2 '19</MenuItem>
+                                                    <MenuItem value={'Q3 19'}>Q3 '19</MenuItem>
+                                                    <MenuItem value={'Q4 19'}>Q4 '19</MenuItem>
+                                                    <MenuItem value={'1H 20'}>1H '20</MenuItem>
+                                                    <MenuItem value={'1H 20'}>2H '20</MenuItem>
+                                                    <MenuItem value={'tbd'}>Other</MenuItem>
+                                                </Select>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div className='row'>
@@ -196,15 +282,15 @@ class feature extends Component {
                                                     }}
                                                     disabled={this.state.disabled}
                                                     fullWidth
-                                                >   
-                                                <MenuItem value={'none'} disabled>
-                                                    Choose an Option
+                                                >
+                                                    <MenuItem value={'none'} disabled>
+                                                        Choose an Option
                                                 </MenuItem>
-                                                <MenuItem value={'Alpha'}>Alpha</MenuItem>
-                                                <MenuItem value={'Bravo'}>Bravo</MenuItem>
-                                                <MenuItem value={'Charlie'}>Charlie</MenuItem>
-                                                <MenuItem value={'Delta'}>Delta</MenuItem>
-                                                <MenuItem value={'Other'}>Other</MenuItem>
+                                                    <MenuItem value={'Alpha'}>Alpha</MenuItem>
+                                                    <MenuItem value={'Bravo'}>Bravo</MenuItem>
+                                                    <MenuItem value={'Charlie'}>Charlie</MenuItem>
+                                                    <MenuItem value={'Delta'}>Delta</MenuItem>
+                                                    <MenuItem value={'Other'}>Other</MenuItem>
                                                 </Select>
                                             </div>
                                         </div>
@@ -221,18 +307,18 @@ class feature extends Component {
                                                     }}
                                                     disabled={this.state.disabled}
                                                     fullWidth
-                                                >   
-                                                <MenuItem value={'none'} disabled>
-                                                    Choose an Option
+                                                >
+                                                    <MenuItem value={'none'} disabled>
+                                                        Choose an Option
                                                 </MenuItem>
-                                                <MenuItem value={'In Design'}>In Design</MenuItem>
-                                                <MenuItem value={'In Development'}>In Development</MenuItem>
-                                                <MenuItem value={'Beta'}>Beta</MenuItem>
-                                                <MenuItem value={'Limted Availability'}>Limited Availability</MenuItem>
-                                                <MenuItem value={'General Availability'}>General Availability</MenuItem>
-                                                <MenuItem value={'Other'}>Other</MenuItem>
+                                                    <MenuItem value={'In Design'}>In Design</MenuItem>
+                                                    <MenuItem value={'In Development'}>In Development</MenuItem>
+                                                    <MenuItem value={'Beta'}>Beta</MenuItem>
+                                                    <MenuItem value={'Limted Availability'}>Limited Availability</MenuItem>
+                                                    <MenuItem value={'General Availability'}>General Availability</MenuItem>
+                                                    <MenuItem value={'Other'}>Other</MenuItem>
 
-                                            </Select>
+                                                </Select>
 
 
                                             </div>
@@ -247,19 +333,20 @@ class feature extends Component {
                                 </div>
                             </form>
 
-
-                            <div id='comment-content' className='card-panel'>
-                                <div className='row'>
-                                    <h6>Add a Comment</h6>
-                                    <CommentList
-                                        comments={this.state.comments[0]}
-                                        addComment={this.addComment}
-                                        handleInputChange={this.handleInputChange}
-                                        value={this.state.newComment}
-                                    />
-                                </div>
-                            </div>
-
+                            {this.state.disabled ?
+                                (<div id='comment-content' className='card-panel'>
+                                    <div className='row'>
+                                        <h6>Add a Comment</h6>
+                                        <CommentList
+                                            comments={this.state.comments[0]}
+                                            addComment={this.addComment}
+                                            handleInputChange={this.handleInputChange}
+                                            value={this.state.newComment}
+                                        />
+                                    </div>
+                                </div>)
+                                : (null)
+                            }
                         </div>
                     </div>
                 )

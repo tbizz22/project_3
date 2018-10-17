@@ -5,7 +5,6 @@ const featureSchema = new Schema({
     title: {
         type: String,
         required: true
-
     },
     team: {
         type: String,
@@ -24,6 +23,18 @@ const featureSchema = new Schema({
     },
     description: {
         type: String
+    },
+    expectedDate: {
+        type: String
+    },
+    valueStatement: {
+        type: String
+    },
+    useCase: {
+        type: String
+    },
+    primaryPersona: {
+        type:String
     },
     comments: [{
         type: Schema.Types.ObjectId,
