@@ -20,7 +20,7 @@ class NavBar extends Component {
                         <ul id="nav-mobile" className="left hide-on-sm-and-down">
                             <MenuButtons 
                             login = {this.props.loggedIn}
-                            user = {this.props.user}
+                            role = {this.props.role}
                             />
                         </ul>
                         <ul id="nav-mobile" className="right hide-on-sm-and-down">        
@@ -28,7 +28,7 @@ class NavBar extends Component {
                                 <MenuLogin                                 
                                 logout = {this.props.logout}
                                 login = {this.props.loggedIn}
-                                user = {this.props.user}
+                                userid = {this.props.userid}
                                 
                                 /> 
                             </li>

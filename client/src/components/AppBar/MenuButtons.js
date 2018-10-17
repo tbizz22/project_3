@@ -2,7 +2,7 @@ import React from 'react'
 
 const MenuButtons = (props) => {
     if (props.login === 1) {
-        if (props.user.role === 'admin') {
+        if (props.role === 'admin') {
             return (
                 <div>
                     <li><a href="/features">Features</a></li>

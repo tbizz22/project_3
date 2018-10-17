@@ -12,17 +12,18 @@ import Feature from './pages/feature';
 import NewFeature from './pages/newfeature';
 import axios from 'axios';
 import API from '../src/utils/API';
+import Preload from './components/preloader';
+
 
 class App extends Component {
     constructor() {
         super()
         this.state = {
-            user: {
-                _id:1,
-                userName: 'NoOne',
-                role: 'Nothing'
-            },
+            userid: 1,
+            userName: 'NoOne',
+            role: 'Nothing',
             loggedIn: 0,
+            loading: true
         }
         this.getUser = this.getUser.bind(this)
         this.componentDidMount = this.componentDidMount.bind(this)
@@ -35,8 +36,8 @@ class App extends Component {
     }
 
     updateUser(userObject) {
-        this.setState({ user: userObject })
-        this.setState({ loggedIn: 1 })
+
+
     }
 
     logout = (event) => {
@@ -47,11 +48,10 @@ class App extends Component {
             if (response.status === 200) {
                 this.setState({
                     loggedIn: false,
-                    user: {
-                        _id:1,
-                        userName: 'NoOne',
-                        role: 'Nothing'
-                    }
+                    userName: '',
+                    role: '',
+                    userid: '',
+                    loading: false
                 })
             }
         }).catch(error => {
@@ -71,13 +71,24 @@ class App extends Component {
                 console.log('Get User: There is a user saved in the server session: ')
                 console.log("response.data.user" + JSON.stringify(response.data.user))
                 API.getUser(response.data.user._id)
-                    .then(res => this.updateUser(res.data)
+                    .then(res => {
+                        this.setState({
+                            userid: res.data._id,
+                            userName: res.data.userName,
+                            role: res.data.role,
+                            loggedIn: 1,
+                            loading: false
+                        })
+                    }
                     )
             } else {
                 console.log('Get user: no user');
                 this.setState({
                     loggedIn: false,
-                    user: null
+                    userName: '',
+                    role: '',
+                    userid: '',
+                    loading: false
                 })
             }
         })
@@ -87,51 +98,57 @@ class App extends Component {
 
 
     render() {
-        return (
-            <Router>
-                <div>
-                    <header>
-                        <NavBar
-                            loggedIn={this.state.loggedIn}
-                            logout={this.logout}
-                            user={this.state.user}
-                        />
-                    </header>
+        if (this.state.loading === true) {
+            return <Preload />
+        } else {
 
-                    <main>
-                        <Switch>
-                            <Route exact path='/' component={home} />
-                            <Route exact path='/home' component={home} />
-                            <Route exact path='/login' render={(routeProps) => (
-                                <Login {...routeProps} {...this.updateUser} />
-                            )}
+            return (
+                <Router>
+                    <div>
+                        <header>
+                            <NavBar
+                                loggedIn={this.state.loggedIn}
+                                logout={this.logout}
+                                userid={this.state.userid}
+                                role={this.state.role}
                             />
-                            <Route exact path='/register' component={register} />
-                            <Route exact path='/logout' component={logout} />
-                            <Route exact path='/user/:id' render={(routeProps) => (
-                                <UserProfile {...routeProps}{...this.state} />
-                            )} 
-                            
-                            />
-                            <Route exact path='/features' render={(routeProps) => (
-                                <Features {...routeProps}{...this.state} />
-                            )}
-                            />
-                            <Route exact path='/features/:id' render={(routeProps) => (
-                                <Feature {...routeProps}{...this.state} />
-                            )}   
-                            />
-                               <Route exact path='/newfeature' render={(routeProps) => (
-                                <NewFeature {...routeProps}{...this.state} />
-                            )}   
-                            />
-                            <Route component={NoMatch} />
+                        </header>
 
-                        </Switch>
-                    </main>
-                </div>
-            </Router>
-        )
+                        <main>
+                            <Switch>
+                                <Route exact path='/' component={home} />
+                                <Route exact path='/home' component={home} />
+                                <Route exact path='/login' render={(routeProps) => (
+                                    <Login {...routeProps} {...this.updateUser} />
+                                )}
+                                />
+                                <Route exact path='/register' component={register} />
+                                <Route exact path='/logout' component={logout} />
+                                <Route exact path='/user/:id' render={(routeProps) => (
+                                    <UserProfile {...routeProps}{...this.state} />
+                                )}
+
+                                />
+                                <Route exact path='/features' render={(routeProps) => (
+                                    <Features {...routeProps}{...this.state} />
+                                )}
+                                />
+                                <Route exact path='/features/:id' render={(routeProps) => (
+                                    <Feature {...routeProps}{...this.state} />
+                                )}
+                                />
+                                <Route exact path='/newfeature' render={(routeProps) => (
+                                    <NewFeature {...routeProps}{...this.state} />
+                                )}
+                                />
+                                <Route component={NoMatch} />
+
+                            </Switch>
+                        </main>
+                    </div>
+                </Router>
+            )
+        }
     }
 }
 
