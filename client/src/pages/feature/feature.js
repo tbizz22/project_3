@@ -257,12 +257,12 @@ class feature extends Component {
                                                     <MenuItem value={'none'} disabled>
                                                         Choose an Option
                                                 </MenuItem>
-                                                    <MenuItem value={'Q1 19'}>Q1 '19</MenuItem>
-                                                    <MenuItem value={'Q2 19'}>Q2 '19</MenuItem>
-                                                    <MenuItem value={'Q3 19'}>Q3 '19</MenuItem>
-                                                    <MenuItem value={'Q4 19'}>Q4 '19</MenuItem>
-                                                    <MenuItem value={'1H 20'}>1H '20</MenuItem>
-                                                    <MenuItem value={'1H 20'}>2H '20</MenuItem>
+                                                    <MenuItem value={'Q1 2019'}>Q1 2019</MenuItem>
+                                                    <MenuItem value={'Q2 2019'}>Q2 2019</MenuItem>
+                                                    <MenuItem value={'Q3 2019'}>Q3 2019</MenuItem>
+                                                    <MenuItem value={'Q4 2019'}>Q4 2019</MenuItem>
+                                                    <MenuItem value={'1H 2020'}>1H 2020</MenuItem>
+                                                    <MenuItem value={'1H 2020'}>2H 2020</MenuItem>
                                                     <MenuItem value={'tbd'}>Other</MenuItem>
                                                 </Select>
                                             </div>
