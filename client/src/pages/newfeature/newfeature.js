@@ -133,7 +133,7 @@ class newfeature extends Component {
                     <div className='row'>
                         <h4 className='center-align'>{this.state.title ? (this.state.title) : ('Add a New Feature')}
                             <Edit
-                                role={this.props.user.role}
+                                role={this.props.role}
                                 showedit={this.state.showedit}
                                 onClick={this.handleEdit}
                             />

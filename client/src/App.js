@@ -17,11 +17,9 @@ class App extends Component {
     constructor() {
         super()
         this.state = {
-            user: {
-                _id:1,
-                userName: 'NoOne',
-                role: 'Nothing'
-            },
+            userid: 1,
+            userName: 'NoOne',
+            role: 'Nothing',
             loggedIn: 0,
         }
         this.getUser = this.getUser.bind(this)
@@ -35,8 +33,8 @@ class App extends Component {
     }
 
     updateUser(userObject) {
-        this.setState({ user: userObject })
-        this.setState({ loggedIn: 1 })
+
+
     }
 
     logout = (event) => {
@@ -47,11 +45,9 @@ class App extends Component {
             if (response.status === 200) {
                 this.setState({
                     loggedIn: false,
-                    user: {
-                        _id:1,
-                        userName: 'NoOne',
-                        role: 'Nothing'
-                    }
+                    userid: 1,
+                    userName: 'NoOne',
+                    role: 'Nothing'
                 })
             }
         }).catch(error => {
@@ -71,13 +67,22 @@ class App extends Component {
                 console.log('Get User: There is a user saved in the server session: ')
                 console.log("response.data.user" + JSON.stringify(response.data.user))
                 API.getUser(response.data.user._id)
-                    .then(res => this.updateUser(res.data)
+                    .then(res => {
+                        this.setState({
+                            userid: res.data._id,
+                            userName: res.data.userName,
+                            role: res.data.role,
+                            loggedIn: 1
+                        })
+                    }
                     )
             } else {
                 console.log('Get user: no user');
                 this.setState({
                     loggedIn: false,
-                    user: null
+                    userName: '',
+                    role: '',
+                    userid: ''
                 })
             }
         })
@@ -94,7 +99,8 @@ class App extends Component {
                         <NavBar
                             loggedIn={this.state.loggedIn}
                             logout={this.logout}
-                            user={this.state.user}
+                            userid={this.state.userid}
+                            role={this.state.role}
                         />
                     </header>
 
@@ -110,8 +116,8 @@ class App extends Component {
                             <Route exact path='/logout' component={logout} />
                             <Route exact path='/user/:id' render={(routeProps) => (
                                 <UserProfile {...routeProps}{...this.state} />
-                            )} 
-                            
+                            )}
+
                             />
                             <Route exact path='/features' render={(routeProps) => (
                                 <Features {...routeProps}{...this.state} />
@@ -119,11 +125,11 @@ class App extends Component {
                             />
                             <Route exact path='/features/:id' render={(routeProps) => (
                                 <Feature {...routeProps}{...this.state} />
-                            )}   
+                            )}
                             />
-                               <Route exact path='/newfeature' render={(routeProps) => (
+                            <Route exact path='/newfeature' render={(routeProps) => (
                                 <NewFeature {...routeProps}{...this.state} />
-                            )}   
+                            )}
                             />
                             <Route component={NoMatch} />
 

@@ -84,7 +84,7 @@ class feature extends Component {
         //reload comments
         e.preventDefault();
         const body = this.state.newComment;
-        const user = this.props.user._id;
+        const user = this.props.userid;
         this.setState({ loading: true })
 
         API.createFeedback({
@@ -171,7 +171,7 @@ class feature extends Component {
                         <div className='row'>
                             <h4 className='center-align'>{this.state.title}
                                 <Edit
-                                    role={this.props.user.role}
+                                    role={this.props.role}
                                     showedit={this.state.showedit}
                                     onClick={this.handleEdit}
                                 />
