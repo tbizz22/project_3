@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { Input, FormBtn, Select } from '../../components/Form';
+import { Input, FormBtn } from '../../components/Form';
 import { Redirect } from 'react-router-dom'
 import API from "../../utils/API";
-import Notifications, {notify} from 'react-notify-toast';
-const toastColor = { 
-    background: '#505050', 
-    text: '#fff' 
-  }
+import Notifications, { notify } from 'react-notify-toast';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+const toastColor = {
+    background: '#505050',
+    text: '#fff'
+}
 
 
 class Register extends Component {
@@ -16,19 +18,19 @@ class Register extends Component {
         firstName: null,
         lastName: null,
         email: null,
-        role: null,
+        role: 'none',
         redirectTo: null,
         confirmPassword: null
     };
 
 
     componentDidMount() {
-        
+
     };
 
     toast = notify.createShowQueue();
 
-    handleInputChange = event => {       
+    handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
             [name]: value
@@ -45,14 +47,14 @@ class Register extends Component {
             lastName: this.state.lastName,
             email: this.state.email,
             role: this.state.role
-        })
-            .then(res => this.setState({
+        }).then(res => {
+            this.setState({
                 redirectTo: '/login'
             })
-            .catch(error => {  
-                this.console.log(error)            
-                this.toast(error.errors.message, 'custom', 2000, toastColor)
-            }))
+        }).catch(error => {
+            this.toast(error.message, 'custom', 2000, toastColor)
+        })
+
 
     }
 
@@ -130,12 +132,27 @@ class Register extends Component {
                             </div>
                             <div className='row'>
                                 <div className='input-field col s12'>
+                                    <h6>Role: </h6>
                                     <Select
-                                        value={this.state.value}
+                                        value={this.state.role}
                                         onChange={this.handleInputChange}
-                                        name="role"
-                                        placeholder="role (required)"
-                                    />
+                                        inputProps={{
+                                            name: 'role',
+                                            id: 'role',
+                                        }}
+                                        fullWidth
+
+                                    >   <MenuItem value={'none'} disabled>
+                                            Choose an Option
+                                        </MenuItem>
+                                        <MenuItem value={'Help Desk'}>Help Desk</MenuItem>
+                                        <MenuItem value={'Account Manager'}>Account Manager</MenuItem>
+                                        <MenuItem value={'Sales'}>Sales</MenuItem>
+                                        <MenuItem value={'Technology'}>Technology</MenuItem>
+                                        <MenuItem value={'Other'}>Other</MenuItem>
+                                        <MenuItem value={'admin'}>admin</MenuItem>
+
+                                    </Select>
                                 </div>
                             </div>
 
